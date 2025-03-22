@@ -23,7 +23,7 @@ jobs:
         run: |
             echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
             ls -al ./AGENTFORCE_DEV_ORG_URL.txt
-            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a DevOrgRe -d
+            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a AFDevOrgRenew -d
       - name: 'Query data'
         run: |
-            sf data query --query "select name from organization" -o DevOrgRefresh
+            sf data query --query "select name from organization" -o DevOrgRenew
