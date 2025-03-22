@@ -21,9 +21,9 @@ jobs:
       - run: sf --version
       - name: 'Authenticate to Agentforce org'
         run: |
-            echo ${{ secrets.AGENTFORCE_DEV_URL }} > ./AGENTFORCE_DEV_URL.txt
-            ls -al ./AGENTFORCE_DEV_URL.txt
-            sf org login sfdx-url -f ./AGENTFORCE_DEV_URL.txt -a DevOrgRe -d
+            echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
+            ls -al ./AGENTFORCE_DEV_ORG_URL.txt
+            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a DevOrgRe -d
       - name: 'Query data'
         run: |
             sf data query --query "select name from organization" -o DevOrgRefresh
