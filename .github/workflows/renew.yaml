@@ -1,0 +1,29 @@
+name: ci
+run-name: ${{ github.actor }} triggered CI build
+#on: [push]
+on:
+  schedule:
+    - cron:  '30 20 * * MON'
+  workflow_dispatch:
+jobs:
+  dev-org-ci:
+    runs-on: ubuntu-latest
+    environment: CI
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          ref: main
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: 'Install CLI'
+        run: npm install @salesforce/cli --location=global
+      - run: sf --version
+      - name: 'Authenticate to Agentforce org'
+        run: |
+            echo ${{ secrets.AGENTFORCE_DEV_URL }} > ./AGENTFORCE_DEV_URL.txt
+            ls -al ./AGENTFORCE_DEV_URL.txt
+            sf org login sfdx-url -f ./AGENTFORCE_DEV_URL.txt -a DevOrgRe -d
+      - name: 'Query data'
+        run: |
+            sf data query --query "select name from organization" -o DevOrgRefresh
