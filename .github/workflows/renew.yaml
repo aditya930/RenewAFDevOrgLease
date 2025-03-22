@@ -26,4 +26,4 @@ jobs:
             sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a AFDevOrgRenew -d
       - name: 'Query data'
         run: |
-            sf data query --query "select name from organization" -o DevOrgRenew
+            sf data query --query "select name from organization" -o AFDevOrgRenew
