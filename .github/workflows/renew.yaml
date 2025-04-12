@@ -22,6 +22,7 @@ jobs:
     authenticate-orgs:
         needs: dev-org-renew
         runs-on: ubuntu-latest
+        environment: AFDevOrgRenew
         strategy:
             matrix:
                 org: [AGENTFORCE_DEV_ORG_URL, AGENTFORCE_DEV_ORG_URL]
