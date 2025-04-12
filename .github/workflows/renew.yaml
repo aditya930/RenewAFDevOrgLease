@@ -22,6 +22,7 @@ jobs:
     authenticate-orgs:
         needs: dev-org-renew
         runs-on: ubuntu-latest
+        environment: AFDevOrgRenew
         strategy:
             matrix:
                 org: [AGENTFORCE_DEV_ORG_URL, AGENTFORCE_DEV_ORG_URL]
@@ -29,8 +30,6 @@ jobs:
             - uses: actions/checkout@v4
               with:
                   ref: main
-            - name: "Install CLI"
-              run: npm install @salesforce/cli --location=global
             - name: "Authenticate to ${{ matrix.org }} org"
               env:
                   SECRET_VALUE: ${{ secrets[matrix.org] }}
