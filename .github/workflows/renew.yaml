@@ -38,3 +38,6 @@ jobs:
               run: |
                   echo "$SECRET_VALUE" > ./${{ matrix.org }}.txt
                   sf org login sfdx-url -f ./${{ matrix.org }}.txt -a ${{ matrix.org }} -d
+            - name: 'Query data'
+              run: |
+                  sf data query --query "select name from organization" -o ${{ matrix.org }}
