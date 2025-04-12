@@ -1,8 +1,10 @@
 # RenewAFDevOrgLease
 
+Much improved readme contents contributed by [Warren Walters](https://github.com/walters954)
+
 Automatically renew the "lease" on Agentforce enabled Developer Edition orgs using GitHub Actions.
 
-Based on [Bob Buzzard's article](https://bobbuzzard.blogspot.com/2025/03/keep-your-agentforce-dev-org-alive-and.html) by Keir Bowden.
+See the [blog post](https://bobbuzzard.blogspot.com/2025/03/keep-your-agentforce-dev-org-alive-and.html) 
 
 ## Why This Repo Exists
 
@@ -27,8 +29,8 @@ Salesforce Developer Editions with Agentforce and Data Cloud expire after just 4
 
 1. Fork or clone this repository (note: for free GitHub accounts, the repository needs to be public)
 2. Navigate to Settings → Environments → New environment
-3. Create a new environment for each org you want to manage
-4. Add an environment secret for each org with the name matching the matrix entries in the workflow file
+3. Create a new environment
+4. Add an environment secret for each org you want to renew with the name matching the matrix entries in the workflow file
     - Secret name should match entries in the matrix (e.g., `trailhead_org1` or `devedition_org1`)
     - Secret value should be the **Sfdx Auth Url** from step 1.4
 
@@ -41,7 +43,7 @@ authenticate-orgs:
     runs-on: ubuntu-latest
     strategy:
         matrix:
-            org: [trailhead_org1, devedition_org1]
+            org: [AGENTFORCE_DEV_ORG_URL, DEVEDITION_ORG1]
 ```
 
 You can customize this matrix by:
@@ -66,7 +68,3 @@ The workflow can be triggered in two ways:
     - This resets the 45-day inactivity timer
 
 By running weekly, this provides plenty of buffer in case of temporary failures.
-
-## Credit
-
-Full credit to [Keir Bowden (Bob Buzzard)](https://bobbuzzard.blogspot.com/) for the original implementation and article which inspired this repository.
