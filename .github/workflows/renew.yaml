@@ -30,6 +30,8 @@ jobs:
             - uses: actions/checkout@v4
               with:
                   ref: main
+            - name: "Install CLI"
+              run: npm install @salesforce/cli --location=global
             - name: "Authenticate to ${{ matrix.org }} org"
               env:
                   SECRET_VALUE: ${{ secrets[matrix.org] }}
