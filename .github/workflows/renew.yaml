@@ -35,8 +35,5 @@ jobs:
               env:
                   SECRET_VALUE: ${{ secrets[matrix.org] }}
               run: |
-                  echo "Secret = $SECRET_VALUE"
-                  echo "Secret for ${{ matrix.org }}"
-                  echo "${{ secrets[matrix.org] }}"
                   echo "$SECRET_VALUE" > ./${{ matrix.org }}.txt
                   sf org login sfdx-url -f ./${{ matrix.org }}.txt -a ${{ matrix.org }} -d
