@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                org: [trailhead_org1, devedition_org1]
+                org: [AGENTFORCE_DEV_ORG_URL, AGENTFORCE_DEV_ORG_URL]
         steps:
             - uses: actions/checkout@v4
               with:
