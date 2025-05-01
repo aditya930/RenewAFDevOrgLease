@@ -25,7 +25,7 @@ jobs:
     environment: AFDevOrgRenew
     strategy:
       matrix:
-        org: [AMD_AGENTFORCE_DEV_ORG_URL_1, AMD_AGENTFORCE_DEV_ORG_URL_2]
+        org: [AMD_AGENTFORCE_DEV_ORG_URL_1]
     steps:
       - uses: actions/checkout@v4
         with:
