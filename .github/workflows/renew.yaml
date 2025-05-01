@@ -2,42 +2,42 @@ name: Renew Agentforce Dev Org Lease
 run-name: ${{ github.actor }} triggered dev org renewal build
 #on: [push]
 on:
-    schedule:
-        - cron: "30 20 * * MON"
-    workflow_dispatch:
+  schedule:
+    - cron: "30 20 * * MON"
+  workflow_dispatch:
 jobs:
-    dev-org-renew:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  ref: main
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: "20"
-            - name: "Install CLI"
-              run: npm install @salesforce/cli --location=global
-            - run: sf --version
+  dev-org-renew:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: "Install CLI"
+        run: npm install @salesforce/cli --location=global
+      - run: sf --version
 
-    authenticate-orgs:
-        needs: dev-org-renew
-        runs-on: ubuntu-latest
-        environment: AFDevOrgRenew
-        strategy:
-            matrix:
-                org: [AGENTFORCE_DEV_ORG_URL, DEVEDITION_ORG1]
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  ref: main
-            - name: "Install CLI"
-              run: npm install @salesforce/cli --location=global
-            - name: "Authenticate to ${{ matrix.org }} org"
-              env:
-                  SECRET_VALUE: ${{ secrets[matrix.org] }}
-              run: |
-                  echo "$SECRET_VALUE" > ./${{ matrix.org }}.txt
-                  sf org login sfdx-url -f ./${{ matrix.org }}.txt -a ${{ matrix.org }} -d
-            - name: 'Query data'
-              run: |
-                  sf data query --query "select name from organization" -o ${{ matrix.org }}
+  authenticate-orgs:
+    needs: dev-org-renew
+    runs-on: ubuntu-latest
+    environment: AFDevOrgRenew
+    strategy:
+      matrix:
+        org: [AMD_AGENTFORCE_DEV_ORG_URL_1, AMD_AGENTFORCE_DEV_ORG_URL_2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: "Install CLI"
+        run: npm install @salesforce/cli --location=global
+      - name: "Authenticate to ${{ matrix.org }} org"
+        env:
+          SECRET_VALUE: ${{ secrets[matrix.org] }}
+        run: |
+          echo "$SECRET_VALUE" > ./${{ matrix.org }}.txt
+          sf org login sfdx-url -f ./${{ matrix.org }}.txt -a ${{ matrix.org }} -d
+      - name: "Query data"
+        run: |
+          sf data query --query "select name from organization" -o ${{ matrix.org }}
