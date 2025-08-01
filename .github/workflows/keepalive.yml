@@ -1,0 +1,10 @@
+name: Keep Repository Active
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Runs at midnight on the 1st of every month
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do nothing
+        run: echo "Keeping repository active"
