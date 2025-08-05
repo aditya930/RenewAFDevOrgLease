@@ -3,9 +3,17 @@ on:
   schedule:
     - cron: "0 0 1 * *" # Runs at midnight on the 1st of every month
   workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
-  keepalive:
+  commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Do nothing
-        run: echo "Keeping repository active"
+      - uses: actions/checkout@v4
+      - run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit --allow-empty -m "Scheduled keepalive commit"
+          git push
